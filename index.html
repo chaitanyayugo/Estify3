@@ -8,17 +8,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css" />
+
+  <!-- IMPORTANT -->
+  <script defer src="script.js"></script>
 </head>
 <body>
+
   <div class="bg-grid"></div>
-  <div class="bg-glow glow-1"></div>
-  <div class="bg-glow glow-2"></div>
-  <div class="bg-glow glow-3"></div>
 
   <aside class="sidebar">
     <div class="brand">
       <div class="brand-logo">E</div>
+
       <div>
         <div class="brand-title">ESTIFY</div>
         <div class="brand-sub">Unified Pricing Intelligence</div>
@@ -26,100 +29,122 @@
     </div>
 
     <nav class="nav">
-      <a class="nav-item active" href="#dashboard">Dashboard</a>
+      <a class="nav-item active" href="#">Dashboard</a>
       <a class="nav-item" href="#input-section">Input</a>
       <a class="nav-item" href="#results-section">Results</a>
       <a class="nav-item" href="#odoo-section">Odoo Mapping</a>
     </nav>
-
-    <div class="sidebar-card">
-      <div class="sidebar-label">ENGINE STATUS</div>
-      <div class="status-row">
-        <span class="status-dot"></span>
-        Ready for analysis
-      </div>
-      <div class="mini-progress">
-        <div class="mini-progress-fill"></div>
-      </div>
-      <div class="sidebar-small">One template, shared extras, variant overrides</div>
-    </div>
   </aside>
 
-  <main class="main" id="dashboard">
+  <main class="main">
+
     <header class="topbar">
       <div>
         <div class="eyebrow">ADVANCED ODOO PRICING MODE</div>
+
         <h1>Elite Variant Pricing Matrix</h1>
+
         <p class="top-desc">
-          Parse raw variant lines, calculate final prices, validate Odoo attribute pricing, and export exact variant overrides when a shared attribute extra cannot represent multiple prices.
+          Shared attribute pricing with exact variant override support.
         </p>
       </div>
 
       <div class="top-actions">
-        <button class="glass-btn" onclick="document.getElementById('input').value=''">Clear</button>
-        <button class="primary-btn" onclick="runCalculator()">Run Analysis</button>
+        <button class="glass-btn" id="clearBtn">
+          Clear
+        </button>
+
+        <button class="primary-btn" id="runBtn">
+          Run Analysis
+        </button>
       </div>
     </header>
 
     <section class="hero-card">
-      <div class="hero-overlay"></div>
       <div class="hero-content">
-        <div class="hero-left">
+
+        <div>
           <div class="live-chip">
             <span class="live-dot"></span>
             LIVE ENGINE
           </div>
 
-          <h2>One Shared Template. Exact Variant Control.</h2>
+          <h2>
+            One Product Template.
+            Multiple Exact Prices.
+          </h2>
+
           <p>
-            This interface is designed for advanced furniture pricing workflows where Odoo attribute extras are used where possible, and exact variant overrides are emitted where prices diverge.
+            ESTIFY automatically detects when Odoo additive pricing breaks
+            and emits exact variant override recommendations.
           </p>
         </div>
 
         <div class="hero-right">
+
           <div class="metric-card">
             <div class="metric-label">Pricing Groups</div>
-            <div class="metric-value small" id="summary">No rows processed yet.</div>
-            <div class="metric-foot">Model-level plans will appear here</div>
+
+            <div class="metric-value small" id="summary">
+              Waiting for input...
+            </div>
           </div>
 
           <div class="metric-card">
             <div class="metric-label">Base Variant</div>
-            <div class="metric-value small" id="odooBase">Waiting for input...</div>
-            <div class="metric-foot" id="odooFit">Validation summary will appear here</div>
+
+            <div class="metric-value small" id="odooBase">
+              No base variant yet.
+            </div>
+
+            <div class="metric-foot" id="odooFit">
+              Validation pending.
+            </div>
           </div>
+
         </div>
       </div>
     </section>
 
     <section class="input-panel" id="input-section">
+
       <div class="panel-head">
         <div>
           <div class="panel-title">Variant Input</div>
+
           <div class="panel-sub">
-            Paste one variant per line. Example: <code>(COR) B5131 (FAB-VIS, 2.5S)</code>
+            Paste one variant per line.
           </div>
         </div>
-        <button class="secondary-btn" onclick="runCalculator()">Analyze Now</button>
+
+        <button class="secondary-btn" id="analyzeBtn">
+          Analyze Now
+        </button>
       </div>
 
       <textarea
         id="input"
         class="input-box"
-        placeholder="Paste your variant lines here...&#10;&#10;(COR) B5131 (FAB-VIS, 2.5S)&#10;(COR) B5131 (PE, C2.5S)&#10;(COR) B5131 (FAB-VIS, 3S)"
+        placeholder="(COR) A0607 (FAB-VIS, 2.5S)
+(COR) A0607 (PE, 2.5S)
+(COR) A0607 (FAB-VIS, 3S)"
       ></textarea>
+
     </section>
 
     <section class="table-card" id="results-section">
+
       <div class="table-head">
         <div>
           <div class="table-title">Calculated Results</div>
-          <div class="table-sub">Parsed model, code, grade, config, final price, and base difference</div>
+          <div class="table-sub">
+            Final parsed pricing matrix
+          </div>
         </div>
-        <div class="table-chip">REAL-TIME</div>
       </div>
 
       <div class="table-wrap">
+
         <table id="output">
           <thead>
             <tr>
@@ -131,43 +156,68 @@
               <th>EXTRA</th>
             </tr>
           </thead>
+
           <tbody></tbody>
         </table>
+
       </div>
     </section>
 
     <section class="bottom-grid" id="odoo-section">
+
       <div class="glass-card">
-        <div class="card-head">Configuration Extras</div>
+
+        <div class="card-head">
+          Configuration Extras
+        </div>
+
         <table class="mini-table">
           <thead>
-            <tr><th>Config</th><th>Extra</th></tr>
+            <tr>
+              <th>Config</th>
+              <th>Extra</th>
+            </tr>
           </thead>
+
           <tbody id="configOutputBody"></tbody>
         </table>
+
       </div>
 
       <div class="glass-card">
-        <div class="card-head">Colour Extras</div>
+
+        <div class="card-head">
+          Colour Extras
+        </div>
+
         <table class="mini-table">
           <thead>
-            <tr><th>Colour</th><th>Extra</th></tr>
+            <tr>
+              <th>Colour</th>
+              <th>Extra</th>
+            </tr>
           </thead>
+
           <tbody id="colourOutputBody"></tbody>
         </table>
+
       </div>
+
     </section>
 
     <section class="table-card validation-card">
+
       <div class="table-head">
         <div>
-          <div class="table-title">Odoo Validation</div>
-          <div class="table-sub">Predicted vs actual with tolerance check</div>
+          <div class="table-title">Validation Matrix</div>
+          <div class="table-sub">
+            Actual vs Predicted
+          </div>
         </div>
-        <div class="table-chip">±10 DEFAULT</div>
       </div>
 
       <div class="table-wrap">
+
         <table>
           <thead>
             <tr>
@@ -179,14 +229,17 @@
               <th>STATUS</th>
             </tr>
           </thead>
+
           <tbody id="validationOutputBody"></tbody>
         </table>
+
       </div>
+
     </section>
 
     <section id="estifyPlans"></section>
+
   </main>
 
-  <script src="script.js"></script>
 </body>
 </html>
